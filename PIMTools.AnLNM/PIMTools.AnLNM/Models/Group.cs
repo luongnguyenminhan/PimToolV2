@@ -5,11 +5,12 @@ namespace PIMTools.AnLNM.Models;
 
 public partial class Group
 {
-    public int Id { get; set; }
+    public decimal Id { get; set; }
 
-    public int GroupLeaderId { get; set; }
+    public decimal GroupLeaderId { get; set; }
 
-    public int Version { get; set; }
+    public decimal Version { get; set; }
+    public string IsExist { get; set; } = null!;
 
     public virtual Employee GroupLeader { get; set; } = null!;
 

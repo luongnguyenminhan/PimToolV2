@@ -5,11 +5,11 @@ namespace PIMTools.AnLNM.Models;
 
 public partial class Project
 {
-    public int Id { get; set; }
+    public decimal Id { get; set; }
 
-    public int GroupId { get; set; }
+    public decimal GroupId { get; set; }
 
-    public int ProjectNumber { get; set; }
+    public decimal ProjectNumber { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -21,7 +21,8 @@ public partial class Project
 
     public DateTime? EndDate { get; set; }
 
-    public int Version { get; set; }
+    public decimal Version { get; set; }
+    public string IsExist { get; set; } = null!;
 
     public virtual Group Group { get; set; } = null!;
 

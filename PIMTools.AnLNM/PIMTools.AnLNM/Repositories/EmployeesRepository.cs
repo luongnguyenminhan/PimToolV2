@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using PIMTools.AnLNM.Helper;
 using PIMTools.AnLNM.Models;
+using System.Drawing.Printing;
 
 namespace PIMTools.AnLNM.Repositories
 {
@@ -20,8 +21,7 @@ namespace PIMTools.AnLNM.Repositories
             {
                 return null;
             }
-            var emps = await _context.Employees.ToListAsync();
-
+            var emps = await _context.Employees.Skip((paginationParameter.PageNumber - 1) * paginationParameter.PageSize).Take(paginationParameter.PageSize).ToListAsync();
             return PagedList<Employee>.ToPagedList(emps,
                 paginationParameter.PageNumber,
                 paginationParameter.PageSize);
@@ -57,6 +57,15 @@ namespace PIMTools.AnLNM.Repositories
             _context.Employees.Update(employee);
             await _context.SaveChangesAsync();
             return (int)employee.Id;
+        }
+
+        public async Task<int> DeleteEmployeeAsync(int employeeId)
+        {
+            if (_context.Employees.SingleOrDefault(e => e.Id==employeeId) == null)
+            {
+                return 0;
+            }
+            
         }
     }
 }

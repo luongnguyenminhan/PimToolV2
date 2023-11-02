@@ -21,7 +21,7 @@ namespace PIMTools.AnLNM.Repositories
             {
                 return null;
             }
-            var pros = await _context.Projects.ToListAsync();
+            var pros = await _context.Projects.Skip((paginationParameter.PageNumber - 1) * paginationParameter.PageSize).Take(paginationParameter.PageSize).ToListAsync();
 
             return PagedList<Project>.ToPagedList(pros,
                 paginationParameter.PageNumber,
@@ -57,6 +57,11 @@ namespace PIMTools.AnLNM.Repositories
             _context.Projects.Update(project);
             await _context.SaveChangesAsync();
             return (int)project.Id;
+        }
+
+        public Task<int> DeleteProjectAsync(int projectId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

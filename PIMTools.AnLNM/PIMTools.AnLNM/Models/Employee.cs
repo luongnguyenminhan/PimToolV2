@@ -5,7 +5,7 @@ namespace PIMTools.AnLNM.Models;
 
 public partial class Employee
 {
-    public int Id { get; set; }
+    public decimal Id { get; set; }
 
     public string Visa { get; set; } = null!;
 
@@ -15,7 +15,9 @@ public partial class Employee
 
     public DateTime BirthDate { get; set; }
 
-    public int Version { get; set; }
+    public decimal Version { get; set; }
+
+    public string IsExist { get; set; } = null!;
 
     public virtual ICollection<Group> Groups { get; set; } = new List<Group>();
 

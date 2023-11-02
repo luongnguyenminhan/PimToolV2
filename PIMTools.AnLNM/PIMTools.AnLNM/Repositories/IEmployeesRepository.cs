@@ -9,6 +9,7 @@ namespace PIMTools.AnLNM.Repositories
         Task<Employee> GetEmployeeByIdAsync(int employeeId);
         Task<int> AddEmployeeAsync(Employee employee);
         Task<int> UpdateEmployeeAsync(Employee employee);
+        Task<int> DeleteEmployeeAsync(int employeeId);
 
     }
 }

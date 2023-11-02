@@ -9,5 +9,6 @@ namespace PIMTools.AnLNM.Repositories
         Task<Project> GetProjectByIdAsync(int projectId);
         Task<int> AddProjectAsync(Project project);
         Task<int> UpdateProjectAsync(Project project);
+        Task<int> DeleteProjectAsync(int projectId);
     }
 }
