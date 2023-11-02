@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PIMTools.AnLNM.Helper;
 using PIMTools.AnLNM.Models;
+using System.Data;
 
 namespace PIMTools.AnLNM.Repositories
 {
@@ -21,9 +24,17 @@ namespace PIMTools.AnLNM.Repositories
             {
                 return null;
             }
-            var pros = await _context.Projects.Skip((paginationParameter.PageNumber - 1) * paginationParameter.PageSize).Take(paginationParameter.PageSize).ToListAsync();
-
-            return PagedList<Project>.ToPagedList(pros,
+            var param = new SqlParameter
+            {
+                ParameterName = "@row",
+                DbType = DbType.Int32,
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var pros = await _context.Projects
+                      .FromSqlRaw($"exec GetProjectPageByPageNumber {paginationParameter.PageNumber}, {paginationParameter.PageSize}, @row OUTPUT", param)
+                      .ToListAsync();
+            int countTotal = (int)param.Value;
+            return PagedList<Project>.ToPagedList(pros,countTotal,
                 paginationParameter.PageNumber,
                 paginationParameter.PageSize);
         }
@@ -34,7 +45,11 @@ namespace PIMTools.AnLNM.Repositories
             {
                 return null;
             }
-            return _context.Projects.SingleOrDefault(e => e.Id == projectId);
+            else
+            {
+                var pros = _context.Projects.SingleOrDefault(e => e.Id == projectId && e.IsExist.Equals("YES"));
+                return pros;
+            }
         }
         public async Task<int> AddProjectAsync(Project project)
         {

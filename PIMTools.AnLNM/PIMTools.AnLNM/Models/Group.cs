@@ -10,7 +10,7 @@ public partial class Group
     public decimal GroupLeaderId { get; set; }
 
     public decimal Version { get; set; }
-    public string IsExist { get; set; } = null!;
+    public string IsExist { get; set; }
 
     public virtual Employee GroupLeader { get; set; } = null!;
 

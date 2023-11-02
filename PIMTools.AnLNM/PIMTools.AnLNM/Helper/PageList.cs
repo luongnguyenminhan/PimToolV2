@@ -16,9 +16,9 @@
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             AddRange(items);
         }
-        public static PagedList<T> ToPagedList(List<T> source, int pageNumber, int pageSize)
+        public static PagedList<T> ToPagedList(List<T> source, int countTotal, int pageNumber, int pageSize)
         {
-            var count = source.Count();
+            var count = countTotal;
             //var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             return new PagedList<T>(source, count, pageNumber, pageSize);
         }

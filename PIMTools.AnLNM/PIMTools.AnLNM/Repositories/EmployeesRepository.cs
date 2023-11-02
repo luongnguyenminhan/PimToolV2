@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.CodeAnalysis;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PIMTools.AnLNM.Helper;
 using PIMTools.AnLNM.Models;
+using System.Data;
 using System.Drawing.Printing;
 
 namespace PIMTools.AnLNM.Repositories
@@ -21,8 +23,17 @@ namespace PIMTools.AnLNM.Repositories
             {
                 return null;
             }
-            var emps = await _context.Employees.Skip((paginationParameter.PageNumber - 1) * paginationParameter.PageSize).Take(paginationParameter.PageSize).ToListAsync();
-            return PagedList<Employee>.ToPagedList(emps,
+            var param = new SqlParameter
+            {
+                ParameterName = "@row",
+                DbType = DbType.Int32,
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var emps = await _context.Employees
+                      .FromSqlRaw($"exec GetEmployeesPageByPageNumber {paginationParameter.PageNumber}, {paginationParameter.PageSize}, @row OUTPUT", param)
+                      .ToListAsync();
+            int countTotal = (int)param.Value;
+            return PagedList<Employee>.ToPagedList(emps,countTotal,
                 paginationParameter.PageNumber,
                 paginationParameter.PageSize);
         }
@@ -33,7 +44,11 @@ namespace PIMTools.AnLNM.Repositories
             {
                 return null;
             }
-            return _context.Employees.SingleOrDefault(e => e.Id == employeeId);
+            else
+            {
+                var emps = _context.Employees.SingleOrDefault(e => e.Id == employeeId && e.IsExist.Equals("YES"));
+                return emps;
+            }
         }
 
         public async Task<int> AddEmployeeAsync(Employee employee)
@@ -61,11 +76,7 @@ namespace PIMTools.AnLNM.Repositories
 
         public async Task<int> DeleteEmployeeAsync(int employeeId)
         {
-            if (_context.Employees.SingleOrDefault(e => e.Id==employeeId) == null)
-            {
-                return 0;
-            }
-            
+            throw new NotImplementedException();
         }
     }
 }

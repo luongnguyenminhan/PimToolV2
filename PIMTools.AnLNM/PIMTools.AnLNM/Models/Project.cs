@@ -22,7 +22,7 @@ public partial class Project
     public DateTime? EndDate { get; set; }
 
     public decimal Version { get; set; }
-    public string IsExist { get; set; } = null!;
+    public string IsExist { get; set; }
 
     public virtual Group Group { get; set; } = null!;
 

@@ -54,7 +54,7 @@ public partial class PimtoolContext : DbContext
                 .HasColumnName("VISA");
             entity.Property(e => e.IsExist)
                 .HasColumnType("char(3)")
-                .HasColumnName("IsExist");
+                .HasColumnName("ISEXIST");
         });
 
         modelBuilder.Entity<Group>(entity =>
@@ -74,7 +74,7 @@ public partial class PimtoolContext : DbContext
                 .HasColumnName("VERSION");
             entity.Property(e => e.IsExist)
                 .HasColumnType("char(3)")
-                .HasColumnName("IsExist");
+                .HasColumnName("ISEXIST");
             entity.HasOne(d => d.GroupLeader).WithMany(p => p.Groups)
                 .HasForeignKey(d => d.GroupLeaderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -120,7 +120,7 @@ public partial class PimtoolContext : DbContext
                 .HasColumnName("VERSION");
             entity.Property(e => e.IsExist)
                 .HasColumnType("char(3)")
-                .HasColumnName("IsExist");
+                .HasColumnName("ISEXIST");
 
             entity.HasOne(d => d.Group).WithMany(p => p.Projects)
                 .HasForeignKey(d => d.GroupId)

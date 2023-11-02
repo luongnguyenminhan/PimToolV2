@@ -17,9 +17,10 @@ public partial class Employee
 
     public decimal Version { get; set; }
 
-    public string IsExist { get; set; } = null!;
+    public string IsExist { get; set; }
 
     public virtual ICollection<Group> Groups { get; set; } = new List<Group>();
 
     public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
+
 }
