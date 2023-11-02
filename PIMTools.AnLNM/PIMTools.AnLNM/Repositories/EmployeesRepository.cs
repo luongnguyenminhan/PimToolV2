@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PIMTools.AnLNM.Helper;
 using PIMTools.AnLNM.Models;
+using PIMTools.AnLNM.Repositories.Interface;
 using System.Data;
 using System.Drawing.Printing;
 

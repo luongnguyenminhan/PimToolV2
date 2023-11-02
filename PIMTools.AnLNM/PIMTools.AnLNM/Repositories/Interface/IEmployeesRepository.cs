@@ -1,7 +1,7 @@
 ﻿using PIMTools.AnLNM.Helper;
 using PIMTools.AnLNM.Models;
 
-namespace PIMTools.AnLNM.Repositories
+namespace PIMTools.AnLNM.Repositories.Interface
 {
     public interface IEmployeesRepository
     {

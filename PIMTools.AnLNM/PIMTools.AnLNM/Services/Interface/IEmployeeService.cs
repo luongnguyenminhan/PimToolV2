@@ -1,7 +1,7 @@
 ﻿using PIMTools.AnLNM.Helper;
 using PIMTools.AnLNM.Models;
 
-namespace PIMTools.AnLNM.Services
+namespace PIMTools.AnLNM.Services.Interface
 {
     public interface IEmployeeService
     {

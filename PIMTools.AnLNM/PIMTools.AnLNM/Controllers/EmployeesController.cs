@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PIMTools.AnLNM.Helper;
 using PIMTools.AnLNM.Models;
-using PIMTools.AnLNM.Services;
+using PIMTools.AnLNM.Services.Interface;
 
 namespace PIMTools.AnLNM.Controllers
 {
