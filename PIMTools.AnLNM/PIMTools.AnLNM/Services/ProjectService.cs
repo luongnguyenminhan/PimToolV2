@@ -14,16 +14,14 @@ namespace PIMTools.AnLNM.Services
         {
             _service = service;
         }
-        public async Task<Project> GetProjectByIdAsync(int id)
-        {
-            return await _service.GetProjectByIdAsync(id);
-        }
-
         public async Task<PagedList<Project>> GetAllProjectAsync(PaginationParameter paginationParameter)
         {
             return await _service.GetAllProjectAsync(paginationParameter);
         }
-
+        public async Task<Project> GetProjectByIdAsync(int id)
+        {
+            return await _service.GetProjectByIdAsync(id);
+        }
         public async Task<int> AddProjectAsync(Project project)
         {
             return await _service.AddProjectAsync(project);

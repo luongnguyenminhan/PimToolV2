@@ -19,7 +19,7 @@ namespace PIMTools.AnLNM.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllEmployees([FromQuery] PaginationParameter paginationParameter) 
+        public async Task<IActionResult> GetAllEmployeesAsync([FromQuery] PaginationParameter paginationParameter) 
         { 
             var emps = await _employeeService.GetEmployeeListAsync(paginationParameter);
             var metadata = new
@@ -36,7 +36,7 @@ namespace PIMTools.AnLNM.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployeesById(int id)
+        public async Task<IActionResult> GetEmployeesByIdAsync(int id)
         {
             var emps = await _employeeService.GetEmployeeByIdAsync(id);
             return emps != null ? Ok(emps) : NotFound();
@@ -49,13 +49,13 @@ namespace PIMTools.AnLNM.Controllers
             return emps != null ? Ok(emps) : BadRequest();
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateEmployee(Employee employee)
+        public async Task<IActionResult> UpdateEmployeeAsync(Employee employee)
         {
             var emp = await _employeeService.GetEmployeeByIdAsync((int)employee.Id);
             return emp != null ? Ok(emp) : BadRequest();
         }
         [HttpDelete]
-        public async Task<IActionResult> DeleteEmployee(int id)
+        public async Task<IActionResult> DeleteEmployeeAsync(int id)
         {
             var emp = await _employeeService.DeleteEmployeeAsync(id);
             return emp != null ? Ok(emp) : NotFound();

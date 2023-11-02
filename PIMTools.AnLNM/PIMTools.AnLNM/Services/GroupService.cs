@@ -14,9 +14,30 @@ namespace PIMTools.AnLNM.Services
         {
             _service = service;
         }
+
         public async Task<PagedList<Group>> GetAllGroupsAsync(PaginationParameter paginationParameter)
         {
             return await _service.GetAllGroupsAsync(paginationParameter);
         }
+        public async Task<Group> GetGroupByIdAsync(int id)
+        {
+            return await _service.GetGroupByIdAsync(id);
+        }
+        public async Task<int> AddGroupAsync(Group group)
+        {
+            return await _service.AddGroupAsync(group);
+        }
+        public async Task<int> UpdateGroupAsync(Group group)
+        {
+            return await _service.UpdateGroupAsync(group);
+        }
+
+        public async Task<int> DeleteGroupAsync(int id)
+        {
+            return await _service.DeleteGroupAsync(id);
+        }
+
+
+
     }
 }

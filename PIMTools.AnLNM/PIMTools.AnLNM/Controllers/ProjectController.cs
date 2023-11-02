@@ -35,7 +35,7 @@ namespace PIMTools.AnLNM.Controllers
             return pros != null ? Ok(pros) : NotFound();
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProjectById(int id)
+        public async Task<IActionResult> GetProjectByIdAsync(int id)
         {
             var pros = await _projectService.GetProjectByIdAsync(id);
             return pros != null ? Ok(pros) : NotFound();
@@ -48,13 +48,13 @@ namespace PIMTools.AnLNM.Controllers
             return pros != null ? Ok(pros) : BadRequest();
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateProject(Project project)
+        public async Task<IActionResult> UpdateProjectAsync(Project project)
         {
             var emp = await _projectService.GetProjectByIdAsync((int)project.Id);
             return emp != null ? Ok(emp) : BadRequest();
         }
         [HttpDelete]
-        public async Task<IActionResult> DeleteProject(int id)
+        public async Task<IActionResult> DeleteProjectAsync(int id)
         {
             var pro = await _projectService.DeleteProjectAsync(id);
             return pro != null ? Ok(pro) : NotFound();
