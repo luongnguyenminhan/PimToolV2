@@ -54,5 +54,11 @@ namespace PIMTools.AnLNM.Controllers
             var emp = await _employeeService.GetEmployeeByIdAsync((int)employee.Id);
             return emp != null ? Ok(emp) : BadRequest();
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var emp = await _employeeService.DeleteEmployeeAsync(id);
+            return emp != null ? Ok(emp) : NotFound();
+        }
     }
 }

@@ -53,5 +53,11 @@ namespace PIMTools.AnLNM.Controllers
             var emp = await _projectService.GetProjectByIdAsync((int)project.Id);
             return emp != null ? Ok(emp) : BadRequest();
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProject(int id)
+        {
+            var pro = await _projectService.DeleteProjectAsync(id);
+            return pro != null ? Ok(pro) : NotFound();
+        }
     }
 }

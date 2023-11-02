@@ -32,5 +32,10 @@ namespace PIMTools.AnLNM.Services
         {
             return await _service.UpdateProjectAsync(project);
         }
+
+        public async Task<int> DeleteProjectAsync(int id)
+        {
+            return await _service.DeleteProjectAsync(id);
+        }
     }
 }

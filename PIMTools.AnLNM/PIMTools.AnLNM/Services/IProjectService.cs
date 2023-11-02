@@ -9,5 +9,6 @@ namespace PIMTools.AnLNM.Services
         Task<Project> GetProjectByIdAsync(int id);
         Task<int> AddProjectAsync(Project project);
         Task<int> UpdateProjectAsync(Project project);
+        Task<int> DeleteProjectAsync(int id);
     }
 }

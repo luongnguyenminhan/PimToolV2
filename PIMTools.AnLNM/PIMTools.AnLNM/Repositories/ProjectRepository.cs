@@ -74,9 +74,21 @@ namespace PIMTools.AnLNM.Repositories
             return (int)project.Id;
         }
 
-        public Task<int> DeleteProjectAsync(int projectId)
+        public async Task<int> DeleteProjectAsync(int projectId)
         {
-            throw new NotImplementedException();
+            if (_context == null)
+            {
+                return 0;
+            }
+            var pros = _context.Projects.SingleOrDefault(e => e.Id == projectId && e.IsExist.Equals("YES"));
+            if (pros == null || pros.IsExist.Equals("NO"))
+            {
+                return 0;
+            }
+            pros.IsExist = "NO";
+            _context.Projects.Update(pros);
+            await _context.SaveChangesAsync();
+            return (int)projectId;
         }
     }
 }

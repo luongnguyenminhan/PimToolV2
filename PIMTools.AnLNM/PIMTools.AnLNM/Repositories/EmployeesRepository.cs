@@ -76,7 +76,19 @@ namespace PIMTools.AnLNM.Repositories
 
         public async Task<int> DeleteEmployeeAsync(int employeeId)
         {
-            throw new NotImplementedException();
+            if (_context == null)
+            {
+                return 0;
+            }
+            var emps = _context.Employees.SingleOrDefault(e => e.Id == employeeId && e.IsExist.Equals("YES"));
+            if (emps  == null || emps.IsExist.Equals("NO"))
+            {
+                return 0;
+            }
+            emps.IsExist = "NO";
+            _context.Employees.Update(emps);
+            await _context.SaveChangesAsync();
+            return (int)employeeId;
         }
     }
 }

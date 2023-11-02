@@ -18,6 +18,7 @@ namespace PIMTools.AnLNM.Services
             return await _service.AddEmployeeAsync(employee);
         }
 
+
         public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
             return await _service.GetEmployeeByIdAsync(id);
@@ -31,6 +32,10 @@ namespace PIMTools.AnLNM.Services
         public async Task<int> UpdateEmployeeAsync(Employee employee)
         {
             return await _service.UpdateEmployeeAsync(employee);
+        }
+        public async Task<int> DeleteEmployeeAsync(int id)
+        {
+            return await _service.DeleteEmployeeAsync(id);
         }
     }
 }
