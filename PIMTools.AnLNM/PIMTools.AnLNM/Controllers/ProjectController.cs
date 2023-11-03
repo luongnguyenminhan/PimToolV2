@@ -21,43 +21,80 @@ namespace PIMTools.AnLNM.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProjects([FromQuery] PaginationParameter paginationParameter)
         {
-            var pros = await _projectService.GetAllProjectAsync(paginationParameter);
-            var metadata = new
+            try
             {
-                pros.TotalCount,
-                pros.PageSize,
-                pros.CurrentPage,
-                pros.TotalPages,
-                pros.HasNext,
-                pros.HasPrevious
-            };
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-            return pros != null ? Ok(pros) : NotFound();
+                var pros = await _projectService.GetAllProjectAsync(paginationParameter);
+                var metadata = new
+                {
+                    pros.TotalCount,
+                    pros.PageSize,
+                    pros.CurrentPage,
+                    pros.TotalPages,
+                    pros.HasNext,
+                    pros.HasPrevious
+                };
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+                return pros != null ? Ok(pros) : NotFound();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProjectByIdAsync(int id)
         {
-            var pros = await _projectService.GetProjectByIdAsync(id);
-            return pros != null ? Ok(pros) : NotFound();
+            try
+            {
+                var pros = await _projectService.GetProjectByIdAsync(id);
+                return pros != null ? Ok(pros) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProjectAsync(Project project)
         {
-            var pros = await _projectService.GetProjectByIdAsync((int)project.Id);
-            return pros != null ? Ok(pros) : BadRequest();
+            try
+            {
+                var pros = await _projectService.GetProjectByIdAsync((int)project.Id);
+                return pros != null ? Ok(pros) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut]
         public async Task<IActionResult> UpdateProjectAsync(Project project)
         {
-            var emp = await _projectService.GetProjectByIdAsync((int)project.Id);
-            return emp != null ? Ok(emp) : BadRequest();
+            try
+            {
+                var emp = await _projectService.GetProjectByIdAsync((int)project.Id);
+                return emp != null ? Ok(emp) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteProjectAsync(int id)
         {
-            var pro = await _projectService.DeleteProjectAsync(id);
-            return pro != null ? Ok(pro) : NotFound();
+            try
+            {
+                var pro = await _projectService.DeleteProjectAsync(id);
+                return pro == null ? NotFound() : Ok(pro);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

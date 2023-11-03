@@ -20,6 +20,8 @@ namespace PIMTools.AnLNM.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllGroups([FromQuery] PaginationParameter paginationParameter)
         {
+            try
+            {
             var groups = await _groupsService.GetAllGroupsAsync(paginationParameter);
             var metadata = new
             {
@@ -32,31 +34,65 @@ namespace PIMTools.AnLNM.Controllers
             };
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return groups != null ? Ok(groups) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupById(int id)
         {
+            try
+            {
             var groups = await _groupsService.GetGroupByIdAsync(id);
             return groups != null ? Ok(groups) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> AddGroupAsync(Group group)
         {
+            try
+            {
             var groups = await _groupsService.GetGroupByIdAsync((int)group.Id);
             return groups != null ? Ok(groups) : BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut]
         public async Task<IActionResult> UpdateGroupAsync(Project group)
         {
-            var emp = await _groupsService.GetGroupByIdAsync((int)group.Id);
-            return emp != null ? Ok(emp) : BadRequest();
+            try
+            {
+            var groups = await _groupsService.GetGroupByIdAsync((int)group.Id);
+            return groups != null ? Ok(groups) : BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteGroupAsync(int id)
         {
-            var pro = await _groupsService.DeleteGroupAsync(id);
-            return pro != null ? Ok(pro) : NotFound();
+            try
+            {
+
+            var groups = await _groupsService.DeleteGroupAsync(id);
+            return groups != null ? Ok(groups) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
